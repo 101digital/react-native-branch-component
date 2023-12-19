@@ -4,7 +4,7 @@ import { useAuth } from 'react-native-auth-component';
 
 // Define the context value type for branch-related functions
 interface BranchContextType {
-  isLogin:() => Promise<boolean>;
+  isAuthenticated:() => Promise<boolean>;
   hasDepositAccount: () => Promise<boolean>;
   testCondition: () => Promise<boolean>;
 }
@@ -14,7 +14,7 @@ const BranchContext = createContext<BranchContextType | undefined>(undefined);
 export const BranchProvider: React.FC = ({ children }) => {
   const { user } = useAuth();
 
-  const isLogin = () => {
+  const isAuthenticated = () => {
     if(user){
       return true;
     }else{
@@ -23,14 +23,14 @@ export const BranchProvider: React.FC = ({ children }) => {
   }
 
   const hasDepositAccount = () => {
-    return false;
+    return true;
   }
   const testCondition = () => {
     return false;
   }
 
   return (
-    <BranchContext.Provider value={{ isLogin, hasDepositAccount, testCondition }}>
+    <BranchContext.Provider value={{ isAuthenticated, hasDepositAccount, testCondition }}>
       {children}
     </BranchContext.Provider>
   );
