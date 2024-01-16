@@ -1,6 +1,6 @@
 // BranchContext.tsx
 import React, { createContext, useContext } from 'react';
-import { useAuth } from 'react-native-auth-component';
+import { useAuthorization } from "@/context";
 
 // Define the context value type for branch-related functions
 interface BranchContextType {
@@ -12,10 +12,10 @@ interface BranchContextType {
 // Create the branch context
 const BranchContext = createContext<BranchContextType | undefined>(undefined);
 export const BranchProvider: React.FC = ({ children }) => {
-  const { user } = useAuth();
+  const { token } = useAuthorization();
 
   const isAuthenticated = () => {
-    if(user){
+    if(token){
       return true;
     }else{
       return false;
