@@ -12,10 +12,10 @@ interface BranchContextType {
 // Create the branch context
 const BranchContext = createContext<BranchContextType | undefined>(undefined);
 export const BranchProvider: React.FC = ({ children }) => {
-  const { token } = useAuthorization();
+  const { tokenStep } = useAuthorization();
 
   const isAuthenticated = () => {
-    if(token){
+    if(tokenStep){
       return true;
     }else{
       return false;
