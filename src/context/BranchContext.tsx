@@ -1,6 +1,6 @@
 // BranchContext.tsx
 import React, { createContext, useContext } from 'react';
-import { useAuthorization } from "@/context";
+import { useAuthorization, useGetUserAccounts } from "@/context";
 
 // Define the context value type for branch-related functions
 interface BranchContextType {
@@ -13,17 +13,15 @@ interface BranchContextType {
 const BranchContext = createContext<BranchContextType | undefined>(undefined);
 export const BranchProvider: React.FC = ({ children }) => {
   const { tokenStep } = useAuthorization();
+  const {getUserAccounts }= useGetUserAccounts()
 
   const isAuthenticated = () => {
-    if(tokenStep){
-      return true;
-    }else{
-      return false;
-    }
+    return !!tokenStep;
   }
 
-  const hasDepositAccount = () => {
-    return true;
+  const hasDepositAccount = async () => {
+    const userAccounts = await getUserAccounts()
+    return userAccounts.some((account:any)=> account.type === "DEPOSIT_WALLET")
   }
   const testCondition = () => {
     return false;
