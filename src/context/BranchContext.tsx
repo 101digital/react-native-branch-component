@@ -13,16 +13,18 @@ interface BranchContextType {
 const BranchContext = createContext<BranchContextType | undefined>(undefined);
 export const BranchProvider: React.FC = ({ children }) => {
   const { tokenStep } = useAuthorization();
-  const {getUserAccounts }= useGetUserAccounts()
+  const {getUserAccountsStep }= useGetUserAccounts()
 
   const isAuthenticated = () => {
     return !!tokenStep;
   }
 
-  const hasDepositAccount = async () => {
-    const userAccounts = await getUserAccounts()
-    return userAccounts.some((account:any)=> account.type === "DEPOSIT_WALLET")
+  const hasDepositAccount =  () => {
+    if(getUserAccountsStep && Array.isArray(getUserAccountsStep?.data) ){
+      return getUserAccountsStep?.data.some((account:any)=> account.type === "DEPOSIT_WALLET")
+    }
   }
+
   const testCondition = () => {
     return false;
   }
