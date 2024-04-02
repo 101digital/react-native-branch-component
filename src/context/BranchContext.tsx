@@ -21,11 +21,11 @@ export const BranchProvider: React.FC = ({ children }) => {
 
   const hasDepositAccount = () => {
     return getUserAccounts().then((acc:any) => {
-      return  acc?.data.some((account:any)=> account.type === "DEPOSIT_WALLET")
+      return  acc?.some((account:any)=> account.type === "DEPOSIT_WALLET")
     })
 
     // if(getUserAccountsStep && Array.isArray(getUserAccountsStep?.data) ){
-    //   return getUserAccountsStep?.data.some((account:any)=> account.type === "DEPOSIT_WALLET")
+    //   return getUserAccountsStep?.some((account:any)=> account.type === "DEPOSIT_WALLET")
     // }
   }
 
