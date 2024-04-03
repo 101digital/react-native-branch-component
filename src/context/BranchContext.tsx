@@ -15,13 +15,13 @@ export const BranchProvider: React.FC = ({ children }) => {
   const { tokenStep } = useAuthorization();
   const {getUserAccountsStep,getUserAccounts }= useGetUserAccounts()
 
-  const isAuthenticated = () => {
+  const isAuthenticated = () : boolean => {
     return !!tokenStep;
   }
 
-  const hasDepositAccount = () => {
+  const hasDepositAccount = ():boolean => {
     return getUserAccounts().then((acc:any) => {
-      return  acc?.some((account:any)=> account.type === "DEPOSIT_WALLET")
+      return  Array.isArray(acc) ? acc?.some((account:any)=> account.type === "DEPOSIT_WALLET") : false
     })
 
     // if(getUserAccountsStep && Array.isArray(getUserAccountsStep?.data) ){
